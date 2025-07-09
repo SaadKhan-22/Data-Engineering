@@ -1,7 +1,7 @@
 # Datelist explained
 - Create a cumulative users table grouped by `users, browser_type` which lists the dates the user was active on before the current date. For example, if a user is active on the 1st, 2nd, and 4th of a month, only the record for the 4th will show all 3 dates:
 
-![screenshot_cumulative_table](./Pasted image 20250618054437.png)
+![image](./cumulative_table_screenshot.png)
 
 - CROSS JOIN this with a `generate_series` CTE which generates dates for 30 days. We'll only really be interested in the latest date (usually). This also depends on the historical data available for the user.
 1.  Create an `active_dt - (date_in_series::date) as days_since_current_dt` column. This will give the days since current date.
