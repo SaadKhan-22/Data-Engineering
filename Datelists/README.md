@@ -1,4 +1,4 @@
-
+# Datelist explained
 - Create a cumulative users table grouped by `users, browser_type` which lists the dates the user was active on before the current date. For example, if a user is active on the 1st, 2nd, and 4th of a month, only the record for the 4th will show all 3 dates:
 
 ![[Pasted image 20250618054437.png]]
