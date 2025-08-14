@@ -12,7 +12,7 @@ CREATE TABLE users_growth_accounting(
 
 
 
-
+-- loads data incrementally
 insert into users_growth_accounting
 with yesterday as(
 
