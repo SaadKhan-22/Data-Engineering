@@ -38,6 +38,7 @@ today as (
 
 -- SEED Query
 -- The quintessential incremental load query
+-- Uses a FULL OUTER JOIN and COALESCEs to fill data
 select 
 	COALESCE(t.user_id, y.user_id) as user_id,
 	COALESCE(y.first_active_date, t.today_date) as first_active_date, -- if not active yesterday, they're active for the first time today,
