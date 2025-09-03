@@ -40,11 +40,11 @@ group by grouping sets(
 	(os_type),
 	(device_type)
 )
-order by count(*) DESC
+order by count(*) DESC;
 
 
 
-
+-- selecting the aggregation grain with all 3 columns
 select * 
 from device_hits_dashboard
 where aggregation_level = 'os_type___device_type___browser_type';
