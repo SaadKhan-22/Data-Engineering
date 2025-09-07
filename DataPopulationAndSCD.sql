@@ -8,6 +8,7 @@ CREATE TYPE films AS (
 
 CREATE TYPE quality_class AS ENUM('star', 'good', 'average', 'bad')
 
+-- granularity for the SCD is 1 year. Could be much finer depending on the business-case
 CREATE TABLE actors (
 actor TEXT,
 actorid TEXT,
