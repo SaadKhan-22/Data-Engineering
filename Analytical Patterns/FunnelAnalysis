@@ -1,0 +1,55 @@
+
+
+-- Funnel Analysis
+
+
+
+
+with deduped_events as (
+select 
+	user_id,
+	url,
+	event_time,
+	event_time::date as event_date
+from events
+where  user_id IS NOT NULL
+	-- and url in ('/', '/signup')
+group by user_id, url, event_time, event_time::date
+order by user_id, url
+),
+
+self_joined as(
+select d1.user_id, d1.url, d1.event_time,
+		d2.user_id as dest_user_id, d2.url as dest_url, d2.event_time as dest_event_time
+from deduped_events d1
+join deduped_events d2
+	on d1.user_id = d2.user_id
+	and d1.event_date = d2.event_date
+	-- and d1.url != d2.url
+	-- and d1.url = '/' 
+	-- and d2.url = '/signup'
+	and d2.event_time > d1.event_time
+),
+
+user_level AS (
+select
+	user_id, 
+	url,
+	COUNT(*) as num_of_hits,
+	-- users visited the signup page multiple times, hence the max instead of count
+	-- MAX(CASE WHEN dest_url = '/signup' then 1::real else 0::real end) as signed_up_users
+	MAX(CASE WHEN dest_url = '/signup' then 1::real else 0::real end) as signed_up_users
+from self_joined
+group by user_id, url
+)
+
+
+select 
+url,
+sum(num_of_hits),
+sum(signed_up_users) as signed_up,
+sum(signed_up_users)*100/sum(num_of_hits) as pct_signed_up
+from user_level
+group by url
+having sum(num_of_hits) > 300
+;
