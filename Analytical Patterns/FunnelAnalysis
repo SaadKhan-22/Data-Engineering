@@ -18,6 +18,7 @@ group by user_id, url, event_time, event_time::date
 order by user_id, url
 ),
 
+-- adds a layer for actions after first landing
 self_joined as(
 select d1.user_id, d1.url, d1.event_time,
 		d2.user_id as dest_user_id, d2.url as dest_url, d2.event_time as dest_event_time
