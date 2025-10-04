@@ -41,12 +41,13 @@
 -- cumulative table design
 -- yesterday is the existing cumulative schema (created above)
 -- today is the source table which is being read from and assimilated into the cumulative table
--- the 
+-- the players table schema matches yesterday's schema
 INSERT INTO players
-with yesterday as (
+with yesterday AS (
 select *
 from players where current_season = 2021
-), today AS (
+), 
+	today AS (
 select *
 from player_seasons where season = 2022
 )
