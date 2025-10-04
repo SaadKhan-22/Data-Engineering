@@ -38,6 +38,9 @@
 -- )
 
 
+-- cumulative table design
+-- yesterday is the existing schema
+-- today is the source table which is being read from and assimilated into the cumulative table
 INSERT INTO players
 with yesterday as (
 select *
